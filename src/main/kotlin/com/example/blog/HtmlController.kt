@@ -14,6 +14,7 @@ class HtmlController(private val repository: ArticleRepository, private val prop
         model["title"] = properties.title
         model["banner"] = properties.banner
         model["articles"] = repository.findAllByOrderByAddedAtDesc().map { it.render() }
+        model["userName"] = "katarina"
         return "blog"
     }
 
@@ -28,21 +29,21 @@ class HtmlController(private val repository: ArticleRepository, private val prop
         return "article"
     }
 
-    fun Article.render() = RenderedArticle(
-            slug,
-            title,
-            headline,
-            content,
-            author,
-            addedAt.format()
-    )
+fun Article.render() = RenderedArticle(
+        slug,
+        title,
+        headline,
+        content,
+        author,
+        addedAt.format()
+)
 
-    data class RenderedArticle(
-            val slug: String,
-            val title: String,
-            val headline: String,
-            val content: String,
-            val author: User,
-            val addedAt: String)
+data class RenderedArticle(
+        val slug: String,
+        val title: String,
+        val headline: String,
+        val content: String,
+        val author: User,
+        val addedAt: String)
 
 }
